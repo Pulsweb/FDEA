@@ -1,0 +1,228 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "runs_runs",
+  "position": {
+    "x": 20,
+    "y": 450,
+    "z": 9,
+    "height": 260,
+    "width": 1240,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run ID"
+                }
+              },
+              "queryRef": "Run History.Run ID",
+              "nativeQueryRef": "Run ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Started At"
+                }
+              },
+              "queryRef": "Run History.Started At",
+              "nativeQueryRef": "Started At"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Raw Status"
+                }
+              },
+              "queryRef": "Run History.Raw Status",
+              "nativeQueryRef": "Raw Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Mode"
+                }
+              },
+              "queryRef": "Run History.Mode",
+              "nativeQueryRef": "Mode"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Dataflows"
+                }
+              },
+              "queryRef": "Run History.Run Dataflows",
+              "nativeQueryRef": "Run Dataflows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Workspaces Scanned"
+                }
+              },
+              "queryRef": "Run History.Run Workspaces Scanned",
+              "nativeQueryRef": "Run Workspaces Scanned"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Ready"
+                }
+              },
+              "queryRef": "Run History.Run Ready",
+              "nativeQueryRef": "Run Ready"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Needs Attention"
+                }
+              },
+              "queryRef": "Run History.Run Needs Attention",
+              "nativeQueryRef": "Run Needs Attention"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Unsupported"
+                }
+              },
+              "queryRef": "Run History.Run Unsupported",
+              "nativeQueryRef": "Run Unsupported"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Deferred"
+                }
+              },
+              "queryRef": "Run History.Run Deferred",
+              "nativeQueryRef": "Run Deferred"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Effort Days"
+                }
+              },
+              "queryRef": "Run History.Run Effort Days",
+              "nativeQueryRef": "Run Effort Days"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run API Calls"
+                }
+              },
+              "queryRef": "Run History.Run API Calls",
+              "nativeQueryRef": "Run API Calls"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Errors"
+                }
+              },
+              "queryRef": "Run History.Run Errors",
+              "nativeQueryRef": "Run Errors"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Runs'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

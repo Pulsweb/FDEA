@@ -1,0 +1,186 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "plan_backlog",
+  "position": {
+    "x": 20,
+    "y": 490,
+    "z": 12,
+    "height": 220,
+    "width": 1240,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Sequence"
+                }
+              },
+              "queryRef": "Migration Backlog.Sequence",
+              "nativeQueryRef": "Sequence"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Wave Label"
+                }
+              },
+              "queryRef": "Migration Backlog.Wave Label",
+              "nativeQueryRef": "Wave Label"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Workspace Name"
+                }
+              },
+              "queryRef": "Migration Backlog.Workspace Name",
+              "nativeQueryRef": "Workspace Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Dataflow Name"
+                }
+              },
+              "queryRef": "Migration Backlog.Dataflow Name",
+              "nativeQueryRef": "Dataflow Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Owner"
+                }
+              },
+              "queryRef": "Migration Backlog.Owner",
+              "nativeQueryRef": "Owner"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Readiness"
+                }
+              },
+              "queryRef": "Migration Backlog.Readiness",
+              "nativeQueryRef": "Readiness"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Recommended Path"
+                }
+              },
+              "queryRef": "Migration Backlog.Recommended Path",
+              "nativeQueryRef": "Recommended Path"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Can Start Now"
+                }
+              },
+              "queryRef": "Migration Backlog.Can Start Now",
+              "nativeQueryRef": "Can Start Now"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Complexity Band"
+                }
+              },
+              "queryRef": "Migration Backlog.Complexity Band",
+              "nativeQueryRef": "Complexity Band"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Backlog Effort Days"
+                }
+              },
+              "queryRef": "Migration Backlog.Backlog Effort Days",
+              "nativeQueryRef": "Backlog Effort Days"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Work queue (in execution order)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

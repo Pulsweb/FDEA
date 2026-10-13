@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "runs_k0",
+  "position": {
+    "x": 20,
+    "y": 78,
+    "z": 2,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Dataflows"
+                }
+              },
+              "queryRef": "Run History.Run Dataflows",
+              "nativeQueryRef": "Run Dataflows"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Run Dataflows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

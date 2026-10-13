@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "runs_api",
+  "position": {
+    "x": 655,
+    "y": 185,
+    "z": 8,
+    "height": 250,
+    "width": 605,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Started At"
+                }
+              },
+              "queryRef": "Run History.Started At",
+              "nativeQueryRef": "Started At",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run API Calls"
+                }
+              },
+              "queryRef": "Run History.Run API Calls",
+              "nativeQueryRef": "Run API Calls"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Errors"
+                }
+              },
+              "queryRef": "Run History.Run Errors",
+              "nativeQueryRef": "Run Errors"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'API calls and errors per run'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

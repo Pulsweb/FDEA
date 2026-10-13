@@ -1,0 +1,31 @@
+relationship c83518d8-d50e-56ee-ac6c-5ace9cd17856
+	fromColumn: Dataflows.'Workspace ID'
+	toColumn: Workspaces.'Workspace ID'
+
+relationship 8ba28fde-aaa5-5e1f-9ccc-d17c31ef69f7
+	fromColumn: 'Unsupported Features'.'Dataflow ID'
+	toColumn: Dataflows.'Dataflow ID'
+
+relationship 358e2ea5-8845-5752-82ad-059268e32e2a
+	fromColumn: 'Unsupported Features'.'Rule ID'
+	toColumn: Rules.'Rule ID'
+
+relationship 0f38ee38-7868-5e8d-9fa7-01437ee33c4a
+	fromColumn: 'Migration Backlog'.'Dataflow ID'
+	toColumn: Dataflows.'Dataflow ID'
+
+relationship 8ff80076-a3f5-55d2-933b-ae7df1914d67
+	fromColumn: Dependencies.'Dataflow ID'
+	toColumn: Dataflows.'Dataflow ID'
+
+relationship 790e94c1-0865-59dc-a857-b6ea24bfcbc6
+	fromColumn: 'Data Sources'.'Dataflow ID'
+	toColumn: Dataflows.'Dataflow ID'
+
+relationship 28053887-2140-5074-9a94-3da6cb34d49e
+	fromColumn: 'Refresh History'.'Dataflow ID'
+	toColumn: Dataflows.'Dataflow ID'
+
+relationship 3885d37b-80dd-530d-8e0a-78a0d1a2f0b1
+	fromColumn: 'Wave Plan'.'Workspace ID'
+	toColumn: Workspaces.'Workspace ID'

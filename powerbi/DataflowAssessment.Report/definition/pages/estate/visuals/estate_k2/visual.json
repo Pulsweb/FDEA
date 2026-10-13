@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "estate_k2",
+  "position": {
+    "x": 516,
+    "y": 140,
+    "z": 7,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Workspaces"
+                    }
+                  },
+                  "Property": "Workspaces Not Scanned"
+                }
+              },
+              "queryRef": "Workspaces.Workspaces Not Scanned",
+              "nativeQueryRef": "Workspaces Not Scanned"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Workspaces Not Scanned'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "blockers_k2",
+  "position": {
+    "x": 434,
+    "y": 140,
+    "z": 7,
+    "height": 92,
+    "width": 197,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Deferred Dataflows"
+                }
+              },
+              "queryRef": "Dataflows.Deferred Dataflows",
+              "nativeQueryRef": "Deferred Dataflows"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Deferred Dataflows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

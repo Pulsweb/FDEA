@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "deps_dtable",
+  "position": {
+    "x": 20,
+    "y": 495,
+    "z": 14,
+    "height": 215,
+    "width": 700,
+    "tabOrder": 14
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Dataflow Name"
+                }
+              },
+              "queryRef": "Dataflows.Dataflow Name",
+              "nativeQueryRef": "Dataflow Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Direction"
+                }
+              },
+              "queryRef": "Dependencies.Direction",
+              "nativeQueryRef": "Direction"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Hop"
+                }
+              },
+              "queryRef": "Dependencies.Hop",
+              "nativeQueryRef": "Hop"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Related Asset Type"
+                }
+              },
+              "queryRef": "Dependencies.Related Asset Type",
+              "nativeQueryRef": "Related Asset Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Related Asset Name"
+                }
+              },
+              "queryRef": "Dependencies.Related Asset Name",
+              "nativeQueryRef": "Related Asset Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Related Workspace Name"
+                }
+              },
+              "queryRef": "Dependencies.Related Workspace Name",
+              "nativeQueryRef": "Related Workspace Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Crosses Workspace"
+                }
+              },
+              "queryRef": "Dependencies.Crosses Workspace",
+              "nativeQueryRef": "Crosses Workspace"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dependencies'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

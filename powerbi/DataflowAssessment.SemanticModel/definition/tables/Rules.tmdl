@@ -1,0 +1,89 @@
+/// The rule catalog the verdicts come from: detection, impact per path, weight, effort and remediation.
+table Rules
+
+	/// Rule id
+	column 'Rule ID'
+		dataType: string
+		sourceColumn: rule_id
+		summarizeBy: none
+
+	/// Rule name
+	column Name
+		dataType: string
+		sourceColumn: name
+		summarizeBy: none
+
+	/// Category
+	column Category
+		dataType: string
+		sourceColumn: category
+		summarizeBy: none
+
+	/// Blocker / Major / Minor / Info
+	column Severity
+		dataType: string
+		sourceColumn: severity
+		summarizeBy: none
+
+	/// Effect on the Upgrade Wizard path: Unsupported / NeedsAttention / Deferred / None
+	column 'Impact Wizard'
+		dataType: string
+		sourceColumn: impact_wizard
+		summarizeBy: none
+
+	/// Effect on the Save-As path: Unsupported / NeedsAttention / Deferred / None
+	column 'Impact Save As'
+		dataType: string
+		sourceColumn: impact_saveas
+		summarizeBy: none
+
+	/// Weight in the unsupported-features score
+	column Weight
+		dataType: int64
+		formatString: 0
+		sourceColumn: weight
+		summarizeBy: none
+
+	/// Remediation effort
+	column 'Effort Days'
+		dataType: double
+		formatString: #,0.00
+		sourceColumn: effort_days
+		summarizeBy: none
+
+	/// How the rule is detected
+	column Detection
+		dataType: string
+		sourceColumn: detection
+		summarizeBy: none
+
+	/// Recommended action
+	column Remediation
+		dataType: string
+		sourceColumn: remediation
+		summarizeBy: none
+
+	/// Verified (documented) / Heuristic
+	column Confidence
+		dataType: string
+		sourceColumn: confidence
+		summarizeBy: none
+
+	/// Rule enabled
+	column Enabled
+		dataType: boolean
+		sourceColumn: enabled
+		summarizeBy: none
+
+	/// Catalog version
+	column Version
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+
+	partition Rules = entity
+		mode: directLake
+		source
+			entityName: assessment_rulecatalog
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

@@ -1,0 +1,18 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	discourageImplicitMeasures
+
+ref table Dataflows
+ref table Workspaces
+ref table 'Unsupported Features'
+ref table 'Migration Backlog'
+ref table 'Wave Plan'
+ref table Dependencies
+ref table 'Data Sources'
+ref table 'Refresh History'
+ref table 'Run History'
+ref table Rules
+
+ref expression 'DirectLake - DataflowAssessment'

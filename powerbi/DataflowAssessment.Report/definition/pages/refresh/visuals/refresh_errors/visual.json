@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "refresh_errors",
+  "position": {
+    "x": 20,
+    "y": 495,
+    "z": 14,
+    "height": 215,
+    "width": 1240,
+    "tabOrder": 14
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Dataflow Name"
+                }
+              },
+              "queryRef": "Dataflows.Dataflow Name",
+              "nativeQueryRef": "Dataflow Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Workspaces"
+                    }
+                  },
+                  "Property": "Workspace Name"
+                }
+              },
+              "queryRef": "Workspaces.Workspace Name",
+              "nativeQueryRef": "Workspace Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Start Time"
+                }
+              },
+              "queryRef": "Refresh History.Start Time",
+              "nativeQueryRef": "Start Time"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "Refresh History.Status",
+              "nativeQueryRef": "Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Error Code"
+                }
+              },
+              "queryRef": "Refresh History.Error Code",
+              "nativeQueryRef": "Error Code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Error Message"
+                }
+              },
+              "queryRef": "Refresh History.Error Message",
+              "nativeQueryRef": "Error Message"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Average Duration (min)"
+                }
+              },
+              "queryRef": "Refresh History.Average Duration (min)",
+              "nativeQueryRef": "Average Duration (min)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Executions and errors'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

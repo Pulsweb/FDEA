@@ -1,0 +1,451 @@
+/// One row per dataflow with its facts, readiness, complexity, effort, recommended path and wave (grain: dataflow).
+table Dataflows
+
+	/// Dataflows in the current filter context.
+	measure 'Dataflow Count' = COUNTROWS('Dataflows')
+		formatString: #,0
+		displayFolder: Inventory
+
+	/// Power BI Dataflow Gen1.
+	measure 'Gen1 Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Dataflow Type] = "Gen1")
+		formatString: #,0
+		displayFolder: Inventory
+
+	/// Fabric Dataflow Gen2.
+	measure 'Gen2 Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Dataflow Type] = "Gen2")
+		formatString: #,0
+		displayFolder: Inventory
+
+	/// Gen1 dataflows to migrate and not migrated yet.
+	measure 'In Scope Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Migration Scope] = "In scope (Gen1 -> Gen2)")
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Can be migrated as is.
+	measure 'Ready Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Ready")
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Migratable after remediation.
+	measure 'Needs Attention Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Needs Attention")
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Blocked by an unsupported feature: remediate or rebuild.
+	measure 'Unsupported Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Unsupported")
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Stale, failing or blocked by an upstream: not planned.
+	measure 'Deferred Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Deferred")
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Share of the in-scope dataflows that are ready.
+	measure 'Ready %' = DIVIDE([Ready Dataflows], [In Scope Dataflows])
+		formatString: 0%
+		displayFolder: Readiness
+
+	/// Already upgraded in place or copied with Save As.
+	measure 'Migrated Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Migration Status] IN {"Migrated", "MigratedBySaveAs"})
+		formatString: #,0
+		displayFolder: Readiness
+
+	/// Estimated person-days (remediation and migration).
+	measure 'Total Effort Days' = SUM('Dataflows'[Effort Days])
+		formatString: #,0.0
+		displayFolder: Effort
+
+	/// Average complexity score (0-100).
+	measure 'Average Complexity Score' = AVERAGE('Dataflows'[Complexity Score])
+		formatString: #,0.0
+		displayFolder: Effort
+
+	/// Dataflows with a source through a gateway.
+	measure 'Dataflows With Gateway' = CALCULATE([Dataflow Count], 'Dataflows'[Uses Gateway] = TRUE())
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Dataflows with an enabled refresh schedule.
+	measure 'Scheduled Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Schedule Enabled] = TRUE())
+		formatString: #,0
+		displayFolder: Operations
+
+	/// Last refresh failed.
+	measure 'Failing Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Last Refresh Status] = "Failed")
+		formatString: #,0
+		displayFolder: Operations
+
+	/// No refresh history could be read (workspace membership is needed for Gen1).
+	measure 'Without Refresh History' = CALCULATE([Dataflow Count], ISBLANK('Dataflows'[Last Refresh Status]))
+		formatString: #,0
+		displayFolder: Operations
+
+	/// Duration of the last refresh.
+	measure 'Last Refresh Duration (min)' = DIVIDE(AVERAGE('Dataflows'[Last Refresh Duration Sec]), 60)
+		formatString: #,0.0
+		displayFolder: Operations
+
+	/// Dataflows read by the dataflow.
+	measure 'Upstream Dataflows' = SUM('Dataflows'[Upstream Dataflow Count])
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Dataflows that read the dataflow.
+	measure 'Downstream Dataflows' = SUM('Dataflows'[Downstream Dataflow Count])
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Semantic models fed by the dataflow.
+	measure 'Downstream Semantic Models' = SUM('Dataflows'[Downstream Dataset Count])
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Reports on those semantic models.
+	measure 'Downstream Reports' = SUM('Dataflows'[Downstream Report Count])
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Dashboards with tiles on those items.
+	measure 'Downstream Dashboards' = SUM('Dataflows'[Downstream Dashboard Count])
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Queries (M members) of the dataflow.
+	measure Queries = SUM('Dataflows'[Query Count])
+		formatString: #,0
+		displayFolder: Complexity
+
+	/// Rule hits that need action.
+	measure Findings = SUM('Dataflows'[Unsupported Feature Count])
+		formatString: #,0
+		displayFolder: Complexity
+
+	/// Dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Dataflow name
+	column 'Dataflow Name'
+		dataType: string
+		sourceColumn: dataflow_name
+		summarizeBy: none
+
+	/// Gen1 / Gen2 / Unknown
+	column 'Dataflow Type'
+		dataType: string
+		sourceColumn: dataflow_type
+		summarizeBy: none
+
+	/// Technical owner
+	column Owner
+		dataType: string
+		sourceColumn: owner_upn
+		summarizeBy: none
+
+	/// Environment
+	column Environment
+		dataType: string
+		sourceColumn: environment
+		summarizeBy: none
+
+	/// Business criticality
+	column 'Business Criticality'
+		dataType: string
+		sourceColumn: business_criticality
+		summarizeBy: none
+
+	/// Business owner (governance overrides)
+	column 'Business Owner'
+		dataType: string
+		sourceColumn: business_owner
+		summarizeBy: none
+
+	/// Support team
+	column 'Support Team'
+		dataType: string
+		sourceColumn: support_team
+		summarizeBy: none
+
+	/// Migration scope
+	column 'Migration Scope'
+		dataType: string
+		sourceColumn: migration_scope
+		summarizeBy: none
+
+	/// Ready / Needs Attention / Unsupported / Deferred
+	column Readiness
+		dataType: string
+		sourceColumn: readiness
+		summarizeBy: none
+
+	/// Predicted Upgrade Wizard status (Ready to migrate / Needs Attention / Upgrade unavailable)
+	column 'Predicted Wizard Status'
+		dataType: string
+		sourceColumn: predicted_wizard_status
+		summarizeBy: none
+
+	/// Actual Upgrade Wizard status recorded in governance overrides
+	column 'Wizard Status Actual'
+		dataType: string
+		sourceColumn: wizard_status_actual
+		summarizeBy: none
+
+	/// Recommended migration path
+	column 'Recommended Path'
+		dataType: string
+		sourceColumn: recommended_path
+		summarizeBy: none
+
+	/// Wave
+	column Wave
+		dataType: int64
+		formatString: 0
+		isHidden
+		sourceColumn: wave
+		summarizeBy: none
+
+	/// Wave label
+	column 'Wave Label'
+		dataType: string
+		sourceColumn: wave_label
+		sortByColumn: Wave
+		summarizeBy: none
+
+	/// Wave x workspace batch
+	column Batch
+		dataType: string
+		sourceColumn: batch_id
+		summarizeBy: none
+
+	/// Complexity band
+	column 'Complexity Band'
+		dataType: string
+		sourceColumn: complexity_band
+		summarizeBy: none
+
+	/// Migration status
+	column 'Migration Status'
+		dataType: string
+		sourceColumn: migration_status
+		summarizeBy: none
+
+	/// Confidence
+	column 'Assessment Confidence'
+		dataType: string
+		sourceColumn: assessment_confidence
+		summarizeBy: none
+
+	/// Last refresh status
+	column 'Last Refresh Status'
+		dataType: string
+		sourceColumn: last_refresh_status
+		summarizeBy: none
+
+	/// Last refresh
+	column 'Last Refresh At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: last_refresh_at
+		summarizeBy: none
+
+	/// Modified
+	column 'Modified At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: modified_at
+		summarizeBy: none
+
+	/// Created
+	column 'Created At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: created_at
+		summarizeBy: none
+
+	/// Latest refresh succeeded and no consecutive failures
+	column 'Refresh OK'
+		dataType: boolean
+		sourceColumn: refresh_ok
+		summarizeBy: none
+
+	/// Schedule enabled
+	column 'Schedule Enabled'
+		dataType: boolean
+		sourceColumn: schedule_enabled
+		summarizeBy: none
+
+	/// Gateway used
+	column 'Uses Gateway'
+		dataType: boolean
+		sourceColumn: uses_gateway
+		summarizeBy: none
+
+	/// Complexity score
+	column 'Complexity Score'
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		sourceColumn: complexity_score
+		summarizeBy: none
+
+	/// Effort estimate
+	column 'Effort Days'
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		sourceColumn: effort_days
+		summarizeBy: none
+
+	/// Last refresh duration
+	column 'Last Refresh Duration Sec'
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		sourceColumn: last_refresh_duration_sec
+		summarizeBy: none
+
+	/// Success rate in the observed window
+	column 'Refresh Success Rate'
+		dataType: double
+		formatString: 0%
+		isHidden
+		sourceColumn: refresh_success_rate
+		summarizeBy: none
+
+	/// Runs per day
+	column 'Schedule Runs Per Day'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: schedule_runs_per_day
+		summarizeBy: none
+
+	/// Sources
+	column 'Source Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: source_count
+		summarizeBy: none
+
+	/// Queries
+	column 'Query Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: query_count
+		summarizeBy: none
+
+	/// Entities
+	column 'Entity Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: entity_count
+		summarizeBy: none
+
+	/// Custom functions
+	column 'Custom Function Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: custom_function_count
+		summarizeBy: none
+
+	/// Parameters
+	column 'Parameter Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: parameter_count
+		summarizeBy: none
+
+	/// Entities with incremental refresh
+	column 'Incremental Refresh Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: incremental_refresh_count
+		summarizeBy: none
+
+	/// Computed entities
+	column 'Computed Entity Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: computed_entity_count
+		summarizeBy: none
+
+	/// Linked entities
+	column 'Linked Entity Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: linked_entity_count
+		summarizeBy: none
+
+	/// Upstream dataflows
+	column 'Upstream Dataflow Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: upstream_dataflow_count
+		summarizeBy: none
+
+	/// Downstream dataflows
+	column 'Downstream Dataflow Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: downstream_dataflow_count
+		summarizeBy: none
+
+	/// Downstream semantic models
+	column 'Downstream Dataset Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: downstream_dataset_count
+		summarizeBy: none
+
+	/// Downstream reports
+	column 'Downstream Report Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: downstream_report_count
+		summarizeBy: none
+
+	/// Downstream dashboards
+	column 'Downstream Dashboard Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: downstream_dashboard_count
+		summarizeBy: none
+
+	/// Findings that need action on at least one path (informational and Deferred findings excluded)
+	column 'Unsupported Feature Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: unsupported_feature_count
+		summarizeBy: none
+
+	partition Dataflows = entity
+		mode: directLake
+		source
+			entityName: assessment_dataflowsummary
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

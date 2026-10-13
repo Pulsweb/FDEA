@@ -1,0 +1,217 @@
+/// One row per notebook run: status and the counts and API usage of that run (trend and monitoring).
+table 'Run History'
+
+	/// API calls of the run.
+	measure 'Run API Calls' = SUM('Run History'[API Calls])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Calls answered with HTTP 429.
+	measure 'Run Throttled Calls' = SUM('Run History'[Throttled API Calls])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Errors logged during the run.
+	measure 'Run Errors' = SUM('Run History'[Error Count])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Dataflows in the inventory at the end of the run.
+	measure 'Run Dataflows' = SUM('Run History'[Dataflows Total])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Workspaces scanned by the run.
+	measure 'Run Workspaces Scanned' = SUM('Run History'[Workspaces Scanned])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Total effort at the end of the run.
+	measure 'Run Effort Days' = SUM('Run History'[Total Effort Days])
+		formatString: #,0.0
+		displayFolder: Monitoring
+
+	/// Ready dataflows at the end of the run.
+	measure 'Run Ready' = SUM('Run History'[Ready Count])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Needs Attention dataflows at the end of the run.
+	measure 'Run Needs Attention' = SUM('Run History'[Needs Attention Count])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Unsupported dataflows at the end of the run.
+	measure 'Run Unsupported' = SUM('Run History'[Unsupported Count])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Deferred dataflows at the end of the run.
+	measure 'Run Deferred' = SUM('Run History'[Deferred Count])
+		formatString: #,0
+		displayFolder: Monitoring
+
+	/// Run id
+	column 'Run ID'
+		dataType: string
+		sourceColumn: run_id
+		summarizeBy: none
+
+	/// Start
+	column 'Started At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: started_at
+		summarizeBy: none
+
+	/// End
+	column 'Ended At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: ended_at
+		summarizeBy: none
+
+	/// Succeeded / Partial / Failed
+	column 'Raw Status'
+		dataType: string
+		sourceColumn: status
+		summarizeBy: none
+
+	/// Run mode
+	column Mode
+		dataType: string
+		sourceColumn: mode
+		summarizeBy: none
+
+	/// Notebook version
+	column 'Notebook Version'
+		dataType: string
+		sourceColumn: notebook_version
+		summarizeBy: none
+
+	/// Workspaces known
+	column 'Workspaces Total'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: workspaces_total
+		summarizeBy: none
+
+	/// Workspaces scanned in this run
+	column 'Workspaces Scanned'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: workspaces_scanned
+		summarizeBy: none
+
+	/// Dataflows known
+	column 'Dataflows Total'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: dataflows_total
+		summarizeBy: none
+
+	/// Gen1
+	column 'Gen1 Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: gen1_count
+		summarizeBy: none
+
+	/// Gen2
+	column 'Gen2 Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: gen2_count
+		summarizeBy: none
+
+	/// Ready
+	column 'Ready Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: ready_count
+		summarizeBy: none
+
+	/// Needs Attention
+	column 'Needs Attention Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: needs_attention_count
+		summarizeBy: none
+
+	/// Unsupported
+	column 'Unsupported Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: unsupported_count
+		summarizeBy: none
+
+	/// Deferred
+	column 'Deferred Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: deferred_count
+		summarizeBy: none
+
+	/// Migrated Gen1 -> Gen2 (type flips or Save-As results)
+	column 'Migrated Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: migrated_count
+		summarizeBy: none
+
+	/// Average complexity score of in-scope dataflows
+	column 'Avg Complexity Score'
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		sourceColumn: avg_complexity_score
+		summarizeBy: none
+
+	/// Total estimated effort
+	column 'Total Effort Days'
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		sourceColumn: total_effort_days
+		summarizeBy: none
+
+	/// API calls
+	column 'API Calls'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: api_calls
+		summarizeBy: none
+
+	/// HTTP 429 responses
+	column 'Throttled API Calls'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: api_throttled
+		summarizeBy: none
+
+	/// Errors logged
+	column 'Error Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: error_count
+		summarizeBy: none
+
+	partition 'Run History' = entity
+		mode: directLake
+		source
+			entityName: assessment_runsummary
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

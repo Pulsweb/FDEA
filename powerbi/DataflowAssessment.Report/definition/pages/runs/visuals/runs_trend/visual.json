@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "runs_trend",
+  "position": {
+    "x": 20,
+    "y": 185,
+    "z": 7,
+    "height": 250,
+    "width": 620,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Started At"
+                }
+              },
+              "queryRef": "Run History.Started At",
+              "nativeQueryRef": "Started At",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Ready"
+                }
+              },
+              "queryRef": "Run History.Run Ready",
+              "nativeQueryRef": "Run Ready"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Needs Attention"
+                }
+              },
+              "queryRef": "Run History.Run Needs Attention",
+              "nativeQueryRef": "Run Needs Attention"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Unsupported"
+                }
+              },
+              "queryRef": "Run History.Run Unsupported",
+              "nativeQueryRef": "Run Unsupported"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run Deferred"
+                }
+              },
+              "queryRef": "Run History.Run Deferred",
+              "nativeQueryRef": "Run Deferred"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Readiness over the runs'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

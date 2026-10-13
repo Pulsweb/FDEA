@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "runs_k2",
+  "position": {
+    "x": 516,
+    "y": 78,
+    "z": 4,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Run History"
+                    }
+                  },
+                  "Property": "Run API Calls"
+                }
+              },
+              "queryRef": "Run History.Run API Calls",
+              "nativeQueryRef": "Run API Calls"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Run API Calls'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "plan_k4",
+  "position": {
+    "x": 1012,
+    "y": 140,
+    "z": 9,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Downstream Items to Re-point"
+                }
+              },
+              "queryRef": "Wave Plan.Downstream Items to Re-point",
+              "nativeQueryRef": "Downstream Items to Re-point"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Downstream Items to Re-point'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

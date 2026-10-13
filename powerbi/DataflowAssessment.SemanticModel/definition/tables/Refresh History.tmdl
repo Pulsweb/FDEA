@@ -1,0 +1,127 @@
+/// One row per refresh execution observed (Gen1 transactions, Gen2 job instances).
+table 'Refresh History'
+
+	/// Refresh executions observed.
+	measure 'Refresh Runs' = COUNTROWS('Refresh History')
+		formatString: #,0
+		displayFolder: Operations
+
+	/// Failed executions.
+	measure 'Failed Runs' = CALCULATE([Refresh Runs], 'Refresh History'[Status] = "Failed")
+		formatString: #,0
+		displayFolder: Operations
+
+	/// Successful share of the finished executions.
+	measure 'Refresh Success Rate' = DIVIDE(CALCULATE([Refresh Runs], 'Refresh History'[Status] = "Success"), CALCULATE([Refresh Runs], 'Refresh History'[Status] IN {"Success", "Failed"}))
+		formatString: 0%
+		displayFolder: Operations
+
+	/// Average execution time.
+	measure 'Average Duration (min)' = DIVIDE(AVERAGE('Refresh History'[Duration Sec]), 60)
+		formatString: #,0.0
+		displayFolder: Operations
+
+	/// Dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Transaction id (Gen1) or job instance id (Gen2)
+	column 'Refresh ID'
+		dataType: string
+		isHidden
+		sourceColumn: refresh_id
+		summarizeBy: none
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Gen1 / Gen2
+	column 'Dataflow Type'
+		dataType: string
+		sourceColumn: dataflow_type
+		summarizeBy: none
+
+	/// PBI.transactions or Fabric.jobInstances
+	column 'Source API'
+		dataType: string
+		sourceColumn: source_api
+		summarizeBy: none
+
+	/// Scheduled / OnDemand / ViaApi / Manual ...
+	column 'Refresh Type'
+		dataType: string
+		sourceColumn: refresh_type
+		summarizeBy: none
+
+	/// Raw status
+	column 'Raw Status'
+		dataType: string
+		sourceColumn: status
+		summarizeBy: none
+
+	/// Success / Failed / Cancelled / InProgress / Skipped / Unknown
+	column Status
+		dataType: string
+		sourceColumn: status_normalized
+		summarizeBy: none
+
+	/// Start (UTC)
+	column 'Start Time'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: start_time
+		summarizeBy: none
+
+	/// End (UTC)
+	column 'End Time'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: end_time
+		summarizeBy: none
+
+	/// Start date
+	column 'Start Date'
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: start_date
+		summarizeBy: none
+
+	/// Start month yyyy-MM (partition column)
+	column 'Start Month'
+		dataType: string
+		sourceColumn: start_month
+		summarizeBy: none
+
+	/// Error code when failed
+	column 'Error Code'
+		dataType: string
+		sourceColumn: error_code
+		summarizeBy: none
+
+	/// Error message when failed
+	column 'Error Message'
+		dataType: string
+		sourceColumn: error_message
+		summarizeBy: none
+
+	/// End minus start
+	column 'Duration Sec'
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		sourceColumn: duration_sec
+		summarizeBy: none
+
+	partition 'Refresh History' = entity
+		mode: directLake
+		source
+			entityName: assessment_refreshhistory
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

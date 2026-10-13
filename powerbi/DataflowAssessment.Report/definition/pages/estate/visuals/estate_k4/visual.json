@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "estate_k4",
+  "position": {
+    "x": 1012,
+    "y": 140,
+    "z": 9,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Workspaces"
+                    }
+                  },
+                  "Property": "Reports in Workspaces"
+                }
+              },
+              "queryRef": "Workspaces.Reports in Workspaces",
+              "nativeQueryRef": "Reports in Workspaces"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reports in Workspaces'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

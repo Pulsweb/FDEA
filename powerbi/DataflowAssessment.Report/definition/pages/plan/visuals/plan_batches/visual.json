@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "plan_batches",
+  "position": {
+    "x": 555,
+    "y": 245,
+    "z": 11,
+    "height": 230,
+    "width": 705,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Wave Label"
+                }
+              },
+              "queryRef": "Wave Plan.Wave Label",
+              "nativeQueryRef": "Wave Label",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Workspace Name"
+                }
+              },
+              "queryRef": "Wave Plan.Workspace Name",
+              "nativeQueryRef": "Workspace Name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Planned Dataflows"
+                }
+              },
+              "queryRef": "Wave Plan.Planned Dataflows",
+              "nativeQueryRef": "Planned Dataflows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Planned Effort Days"
+                }
+              },
+              "queryRef": "Wave Plan.Planned Effort Days",
+              "nativeQueryRef": "Planned Effort Days"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Downstream Items to Re-point"
+                }
+              },
+              "queryRef": "Wave Plan.Downstream Items to Re-point",
+              "nativeQueryRef": "Downstream Items to Re-point"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Batches: wave x workspace'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

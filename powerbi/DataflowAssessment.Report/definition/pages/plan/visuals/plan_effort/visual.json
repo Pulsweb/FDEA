@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "plan_effort",
+  "position": {
+    "x": 20,
+    "y": 245,
+    "z": 10,
+    "height": 230,
+    "width": 520,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Wave Label"
+                }
+              },
+              "queryRef": "Wave Plan.Wave Label",
+              "nativeQueryRef": "Wave Label",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Wave Plan"
+                    }
+                  },
+                  "Property": "Planned Effort Days"
+                }
+              },
+              "queryRef": "Wave Plan.Planned Effort Days",
+              "nativeQueryRef": "Planned Effort Days"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Effort per wave (person-days)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

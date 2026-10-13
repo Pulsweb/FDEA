@@ -1,0 +1,172 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "blockers_findings",
+  "position": {
+    "x": 20,
+    "y": 495,
+    "z": 13,
+    "height": 215,
+    "width": 1240,
+    "tabOrder": 13
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Dataflow Name"
+                }
+              },
+              "queryRef": "Dataflows.Dataflow Name",
+              "nativeQueryRef": "Dataflow Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Workspaces"
+                    }
+                  },
+                  "Property": "Workspace Name"
+                }
+              },
+              "queryRef": "Workspaces.Workspace Name",
+              "nativeQueryRef": "Workspace Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Feature Name"
+                }
+              },
+              "queryRef": "Unsupported Features.Feature Name",
+              "nativeQueryRef": "Feature Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Severity"
+                }
+              },
+              "queryRef": "Unsupported Features.Severity",
+              "nativeQueryRef": "Severity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Impact Wizard"
+                }
+              },
+              "queryRef": "Unsupported Features.Impact Wizard",
+              "nativeQueryRef": "Impact Wizard"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Impact Save As"
+                }
+              },
+              "queryRef": "Unsupported Features.Impact Save As",
+              "nativeQueryRef": "Impact Save As"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Entity Name"
+                }
+              },
+              "queryRef": "Unsupported Features.Entity Name",
+              "nativeQueryRef": "Entity Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Remediation"
+                }
+              },
+              "queryRef": "Unsupported Features.Remediation",
+              "nativeQueryRef": "Remediation"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Unsupported Features"
+                    }
+                  },
+                  "Property": "Remediation Effort Days"
+                }
+              },
+              "queryRef": "Unsupported Features.Remediation Effort Days",
+              "nativeQueryRef": "Remediation Effort Days"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Findings and remediation'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

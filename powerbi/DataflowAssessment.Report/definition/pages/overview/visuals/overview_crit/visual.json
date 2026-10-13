@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "overview_crit",
+  "position": {
+    "x": 980,
+    "y": 490,
+    "z": 18,
+    "height": 220,
+    "width": 280,
+    "tabOrder": 18
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Business Criticality"
+                }
+              },
+              "queryRef": "Dataflows.Business Criticality",
+              "nativeQueryRef": "Business Criticality",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dataflows"
+                    }
+                  },
+                  "Property": "Dataflow Count"
+                }
+              },
+              "queryRef": "Dataflows.Dataflow Count",
+              "nativeQueryRef": "Dataflow Count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Business criticality'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,146 @@
+/// One row per dataflow and data source, with gateway usage and credential type where accessible.
+table 'Data Sources'
+
+	/// Dataflow x data source pairs.
+	measure 'Source Count' = COUNTROWS('Data Sources')
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Sources through a gateway.
+	measure 'Gateway Sources' = CALCULATE(COUNTROWS('Data Sources'), 'Data Sources'[Uses Gateway] = TRUE())
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Sources on premises.
+	measure 'On-premises Sources' = CALCULATE(COUNTROWS('Data Sources'), 'Data Sources'[Is On Premises] = TRUE())
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Distinct servers, URLs and paths.
+	measure 'Distinct Hosts' = DISTINCTCOUNT('Data Sources'[Host])
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Dataflows that read the source.
+	measure 'Dataflows Using Source' = DISTINCTCOUNT('Data Sources'[Dataflow ID])
+		formatString: #,0
+		displayFolder: Connectivity
+
+	/// Dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Hash of type plus normalized connection details
+	column 'Source Key'
+		dataType: string
+		isHidden
+		sourceColumn: source_key
+		summarizeBy: none
+
+	/// Power BI datasource id when known
+	column 'Datasource ID'
+		dataType: string
+		isHidden
+		sourceColumn: datasource_id
+		summarizeBy: none
+
+	/// Connector type, e.g. Sql, Web, SharePointList
+	column 'Source Type'
+		dataType: string
+		sourceColumn: datasource_type
+		summarizeBy: none
+
+	/// Database / File / Web / Cloud storage / SaaS / Dataflow / Fabric / Other
+	column 'Source Category'
+		dataType: string
+		sourceColumn: source_category
+		summarizeBy: none
+
+	/// Server from connection details
+	column Server
+		dataType: string
+		sourceColumn: server
+		summarizeBy: none
+
+	/// Database from connection details
+	column Database
+		dataType: string
+		sourceColumn: database
+		summarizeBy: none
+
+	/// URL from connection details
+	column URL
+		dataType: string
+		sourceColumn: url
+		summarizeBy: none
+
+	/// Path from connection details
+	column Path
+		dataType: string
+		sourceColumn: path
+		summarizeBy: none
+
+	/// Normalized host used for grouping
+	column Host
+		dataType: string
+		sourceColumn: host
+		summarizeBy: none
+
+	/// Gateway name when resolvable
+	column 'Gateway Name'
+		dataType: string
+		sourceColumn: gateway_name
+		summarizeBy: none
+
+	/// OnPremises / VirtualNetwork / Unknown
+	column 'Gateway Type'
+		dataType: string
+		sourceColumn: gateway_type
+		summarizeBy: none
+
+	/// Source uses a gateway
+	column 'Uses Gateway'
+		dataType: boolean
+		sourceColumn: uses_gateway
+		summarizeBy: none
+
+	/// Source is on premises (gateway or file/folder based)
+	column 'Is On Premises'
+		dataType: boolean
+		sourceColumn: is_on_premises
+		summarizeBy: none
+
+	/// Credential type when accessible
+	column 'Credential Type'
+		dataType: string
+		sourceColumn: credential_type
+		summarizeBy: none
+
+	/// Reported as misconfigured by the Scanner
+	column 'Is Misconfigured'
+		dataType: boolean
+		sourceColumn: is_misconfigured
+		summarizeBy: none
+
+	/// Scanner / AdminDatasources / Definition / ItemConnections
+	column 'Discovered Via'
+		dataType: string
+		sourceColumn: discovered_via
+		summarizeBy: none
+
+	partition 'Data Sources' = entity
+		mode: directLake
+		source
+			entityName: assessment_dataflowsources
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

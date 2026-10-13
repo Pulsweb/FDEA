@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "deps_stable",
+  "position": {
+    "x": 735,
+    "y": 495,
+    "z": 15,
+    "height": 215,
+    "width": 525,
+    "tabOrder": 15
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Data Sources"
+                    }
+                  },
+                  "Property": "Host"
+                }
+              },
+              "queryRef": "Data Sources.Host",
+              "nativeQueryRef": "Host"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Data Sources"
+                    }
+                  },
+                  "Property": "Source Type"
+                }
+              },
+              "queryRef": "Data Sources.Source Type",
+              "nativeQueryRef": "Source Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Data Sources"
+                    }
+                  },
+                  "Property": "Gateway Type"
+                }
+              },
+              "queryRef": "Data Sources.Gateway Type",
+              "nativeQueryRef": "Gateway Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Data Sources"
+                    }
+                  },
+                  "Property": "Credential Type"
+                }
+              },
+              "queryRef": "Data Sources.Credential Type",
+              "nativeQueryRef": "Credential Type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Data Sources"
+                    }
+                  },
+                  "Property": "Dataflows Using Source"
+                }
+              },
+              "queryRef": "Data Sources.Dataflows Using Source",
+              "nativeQueryRef": "Dataflows Using Source"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sources'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

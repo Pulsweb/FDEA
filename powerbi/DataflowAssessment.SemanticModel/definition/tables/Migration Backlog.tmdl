@@ -1,0 +1,140 @@
+/// The ordered work queue of the in-scope dataflows: wave, path, whether the work can start now and what blocks it.
+table 'Migration Backlog'
+
+	/// Ready or remediable now, and every upstream already migrated.
+	measure 'Startable Dataflows' = CALCULATE(COUNTROWS('Migration Backlog'), 'Migration Backlog'[Can Start Now] = TRUE())
+		formatString: #,0
+		displayFolder: Plan
+
+	/// Waiting for an upstream or for a decision.
+	measure 'Blocked Dataflows' = CALCULATE(COUNTROWS('Migration Backlog'), 'Migration Backlog'[Can Start Now] = FALSE())
+		formatString: #,0
+		displayFolder: Plan
+
+	/// Effort of the backlog.
+	measure 'Backlog Effort Days' = SUM('Migration Backlog'[Effort Days])
+		formatString: #,0.0
+		displayFolder: Plan
+
+	/// Dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Execution order: wave, dependency level, workspace, name
+	column Sequence
+		dataType: int64
+		formatString: 0
+		sourceColumn: seq
+		summarizeBy: none
+
+	/// Wave number
+	column Wave
+		dataType: int64
+		formatString: 0
+		isHidden
+		sourceColumn: wave
+		summarizeBy: none
+
+	/// Wave label
+	column 'Wave Label'
+		dataType: string
+		sourceColumn: wave_label
+		sortByColumn: Wave
+		summarizeBy: none
+
+	/// Wave x workspace batch
+	column Batch
+		dataType: string
+		sourceColumn: batch_id
+		summarizeBy: none
+
+	/// Workspace name
+	column 'Workspace Name'
+		dataType: string
+		sourceColumn: workspace_name
+		summarizeBy: none
+
+	/// Dataflow name
+	column 'Dataflow Name'
+		dataType: string
+		sourceColumn: dataflow_name
+		summarizeBy: none
+
+	/// Owner (the Upgrade Wizard must be run by the owner)
+	column Owner
+		dataType: string
+		sourceColumn: owner_upn
+		summarizeBy: none
+
+	/// Ready / Needs Attention / Unsupported / Deferred
+	column Readiness
+		dataType: string
+		sourceColumn: readiness
+		summarizeBy: none
+
+	/// UpgradeWizard / SaveAs / ManualRebuild / Retire / FixThenReassess
+	column 'Recommended Path'
+		dataType: string
+		sourceColumn: recommended_path
+		summarizeBy: none
+
+	/// Ready, not yet migrated, and every upstream dataflow is already migrated
+	column 'Can Start Now'
+		dataType: boolean
+		sourceColumn: can_start_now
+		summarizeBy: none
+
+	/// Complexity band
+	column 'Complexity Band'
+		dataType: string
+		sourceColumn: complexity_band
+		summarizeBy: none
+
+	/// Business criticality
+	column 'Business Criticality'
+		dataType: string
+		sourceColumn: business_criticality
+		summarizeBy: none
+
+	/// Environment
+	column Environment
+		dataType: string
+		sourceColumn: environment
+		summarizeBy: none
+
+	/// NotStarted / SaveAsFailed
+	column 'Migration Status'
+		dataType: string
+		sourceColumn: migration_status
+		summarizeBy: none
+
+	/// Gen2 copy id when a Save-As copy exists
+	column 'Gen2 Dataflow ID'
+		dataType: string
+		sourceColumn: gen2_dataflow_id
+		summarizeBy: none
+
+	/// Estimated effort
+	column 'Effort Days'
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		sourceColumn: effort_days
+		summarizeBy: none
+
+	partition 'Migration Backlog' = entity
+		mode: directLake
+		source
+			entityName: assessment_migrationbacklog
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

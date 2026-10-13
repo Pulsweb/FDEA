@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "refresh_k3",
+  "position": {
+    "x": 641,
+    "y": 140,
+    "z": 8,
+    "height": 92,
+    "width": 197,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Refresh History"
+                    }
+                  },
+                  "Property": "Average Duration (min)"
+                }
+              },
+              "queryRef": "Refresh History.Average Duration (min)",
+              "nativeQueryRef": "Average Duration (min)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Average Duration (min)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,139 @@
+/// One row per wave and workspace (a batch of the Upgrade Wizard): sizes, effort and path mix.
+table 'Wave Plan'
+
+	/// Dataflows planned in the wave.
+	measure 'Planned Dataflows' = SUM('Wave Plan'[Dataflow Count])
+		formatString: #,0
+		displayFolder: Plan
+
+	/// Effort of the wave.
+	measure 'Planned Effort Days' = SUM('Wave Plan'[Total Effort Days])
+		formatString: #,0.0
+		displayFolder: Plan
+
+	/// Wave x workspace batches (the Upgrade Wizard works per workspace).
+	measure Batches = COUNTROWS('Wave Plan')
+		formatString: #,0
+		displayFolder: Plan
+
+	/// Downstream items touched by the wave.
+	measure 'Downstream Items to Re-point' = SUM('Wave Plan'[Downstream Item Count])
+		formatString: #,0
+		displayFolder: Plan
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Wave number
+	column Wave
+		dataType: int64
+		formatString: 0
+		isHidden
+		sourceColumn: wave
+		summarizeBy: none
+
+	/// Wave label
+	column 'Wave Label'
+		dataType: string
+		sourceColumn: wave_label
+		sortByColumn: Wave
+		summarizeBy: none
+
+	/// Workspace name
+	column 'Workspace Name'
+		dataType: string
+		sourceColumn: workspace_name
+		summarizeBy: none
+
+	/// Capacity name
+	column 'Capacity Name'
+		dataType: string
+		sourceColumn: capacity_name
+		summarizeBy: none
+
+	/// Dev / Test / Prod, Mixed when the dataflows of the batch disagree, Unknown
+	column Environment
+		dataType: string
+		sourceColumn: environment
+		summarizeBy: none
+
+	/// Recommended paths and counts
+	column 'Path Mix'
+		dataType: string
+		sourceColumn: path_mix
+		summarizeBy: none
+
+	/// Dataflows in the batch
+	column 'Dataflow Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: dataflow_count
+		summarizeBy: none
+
+	/// Ready
+	column 'Ready Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: ready_count
+		summarizeBy: none
+
+	/// Needs Attention
+	column 'Needs Attention Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: needs_attention_count
+		summarizeBy: none
+
+	/// Unsupported
+	column 'Unsupported Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: unsupported_count
+		summarizeBy: none
+
+	/// Deferred
+	column 'Deferred Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: deferred_count
+		summarizeBy: none
+
+	/// Sum of effort
+	column 'Total Effort Days'
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		sourceColumn: total_effort_days
+		summarizeBy: none
+
+	/// Highest complexity in the batch
+	column 'Max Complexity Score'
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		sourceColumn: max_complexity_score
+		summarizeBy: none
+
+	/// Downstream semantic models, reports and dashboards
+	column 'Downstream Item Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: downstream_item_count
+		summarizeBy: none
+
+	partition 'Wave Plan' = entity
+		mode: directLake
+		source
+			entityName: assessment_waveplan
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

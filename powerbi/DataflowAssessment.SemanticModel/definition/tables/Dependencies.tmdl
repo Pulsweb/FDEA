@@ -1,0 +1,114 @@
+/// Upstream and downstream assets of every dataflow, direct (hop 1) and transitive.
+table Dependencies
+
+	/// Related assets, direct and transitive.
+	measure 'Related Assets' = COUNTROWS('Dependencies')
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Links that cross a workspace boundary.
+	measure 'Cross-workspace Links' = CALCULATE(COUNTROWS('Dependencies'), 'Dependencies'[Crosses Workspace] = TRUE())
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Assets in a dependency cycle.
+	measure 'Dependency Cycles' = CALCULATE(COUNTROWS('Dependencies'), 'Dependencies'[Is Cyclic] = TRUE())
+		formatString: #,0
+		displayFolder: Dependencies
+
+	/// Anchor dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Anchor workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// UPSTREAM or DOWNSTREAM
+	column Direction
+		dataType: string
+		sourceColumn: direction
+		summarizeBy: none
+
+	/// 1 = direct
+	column Hop
+		dataType: int64
+		formatString: 0
+		sourceColumn: hop
+		summarizeBy: none
+
+	/// Dataflow / SemanticModel / Report / Dashboard / DataPipeline / Datasource / Other
+	column 'Related Asset Type'
+		dataType: string
+		sourceColumn: related_asset_type
+		summarizeBy: none
+
+	/// Related asset id
+	column 'Related Asset ID'
+		dataType: string
+		isHidden
+		sourceColumn: related_asset_id
+		summarizeBy: none
+
+	/// Related asset name
+	column 'Related Asset Name'
+		dataType: string
+		sourceColumn: related_asset_name
+		summarizeBy: none
+
+	/// Related workspace id
+	column 'Related Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: related_workspace_id
+		summarizeBy: none
+
+	/// Related workspace name
+	column 'Related Workspace Name'
+		dataType: string
+		sourceColumn: related_workspace_name
+		summarizeBy: none
+
+	/// Relationship of the last edge on the path
+	column Relationship
+		dataType: string
+		sourceColumn: relationship
+		summarizeBy: none
+
+	/// Related asset is in another workspace
+	column 'Crosses Workspace'
+		dataType: boolean
+		sourceColumn: crosses_workspace
+		summarizeBy: none
+
+	/// Generation when the related asset is a dataflow
+	column 'Related Generation'
+		dataType: int64
+		formatString: #,0
+		sourceColumn: related_generation
+		summarizeBy: none
+
+	/// Readable path from the anchor
+	column Path
+		dataType: string
+		sourceColumn: path
+		summarizeBy: none
+
+	/// Part of a dependency cycle
+	column 'Is Cyclic'
+		dataType: boolean
+		sourceColumn: is_cyclic
+		summarizeBy: none
+
+	partition Dependencies = entity
+		mode: directLake
+		source
+			entityName: assessment_dataflowdependencies
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

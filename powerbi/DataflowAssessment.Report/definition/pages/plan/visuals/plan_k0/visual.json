@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "plan_k0",
+  "position": {
+    "x": 20,
+    "y": 140,
+    "z": 5,
+    "height": 92,
+    "width": 238,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Migration Backlog"
+                    }
+                  },
+                  "Property": "Startable Dataflows"
+                }
+              },
+              "queryRef": "Migration Backlog.Startable Dataflows",
+              "nativeQueryRef": "Startable Dataflows"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Startable Dataflows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

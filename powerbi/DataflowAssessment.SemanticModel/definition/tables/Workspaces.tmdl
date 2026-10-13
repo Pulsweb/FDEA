@@ -1,0 +1,201 @@
+/// One row per workspace of the tenant, with capacity, domain, environment and what the Scanner found in it.
+table Workspaces
+
+	/// Workspaces that still exist.
+	measure 'Workspace Count' = CALCULATE(COUNTROWS('Workspaces'), 'Workspaces'[Is Deleted] = FALSE())
+		formatString: #,0
+		displayFolder: Estate
+
+	/// Workspaces holding at least one dataflow.
+	measure 'Workspaces With Dataflows' = COUNTROWS(FILTER('Workspaces', [Dataflow Count] > 0))
+		formatString: #,0
+		displayFolder: Estate
+
+	/// Workspaces the Scanner did not cover: their dataflows may be missing or incomplete.
+	measure 'Workspaces Not Scanned' = CALCULATE(COUNTROWS('Workspaces'), 'Workspaces'[Is Deleted] = FALSE(), 'Workspaces'[Is Personal] = FALSE(), 'Workspaces'[Scan State] <> "Scanned")
+		formatString: #,0
+		displayFolder: Data quality
+
+	/// Semantic models seen by the Scanner.
+	measure 'Semantic Models in Workspaces' = SUM('Workspaces'[Dataset Count])
+		formatString: #,0
+		displayFolder: Estate
+
+	/// Reports seen by the Scanner.
+	measure 'Reports in Workspaces' = SUM('Workspaces'[Report Count])
+		formatString: #,0
+		displayFolder: Estate
+
+	/// Workspace GUID
+	column 'Workspace ID'
+		dataType: string
+		isHidden
+		sourceColumn: workspace_id
+		summarizeBy: none
+
+	/// Workspace name
+	column 'Workspace Name'
+		dataType: string
+		sourceColumn: workspace_name
+		summarizeBy: none
+
+	/// Workspace / Group / PersonalGroup / AdminWorkspace
+	column 'Workspace Type'
+		dataType: string
+		sourceColumn: workspace_type
+		summarizeBy: none
+
+	/// Active / Deleted / Removing ...
+	column State
+		dataType: string
+		sourceColumn: state
+		summarizeBy: none
+
+	/// Personal workspace flag
+	column 'Is Personal'
+		dataType: boolean
+		sourceColumn: is_personal
+		summarizeBy: none
+
+	/// Capacity display name when resolvable
+	column 'Capacity Name'
+		dataType: string
+		sourceColumn: capacity_name
+		summarizeBy: none
+
+	/// Capacity SKU when resolvable
+	column 'Capacity SKU'
+		dataType: string
+		sourceColumn: capacity_sku
+		summarizeBy: none
+
+	/// Resolved / Unresolved / Shared
+	column 'Capacity Resolution'
+		dataType: string
+		sourceColumn: capacity_resolution
+		summarizeBy: none
+
+	/// Capacity can host Fabric items
+	column 'Is Fabric Capable'
+		dataType: boolean
+		sourceColumn: is_fabric_capable
+		summarizeBy: none
+
+	/// Fabric domain name
+	column 'Domain Name'
+		dataType: string
+		sourceColumn: domain_name
+		summarizeBy: none
+
+	/// Dev / Test / Prod / Unknown
+	column Environment
+		dataType: string
+		sourceColumn: environment
+		summarizeBy: none
+
+	/// Override / DeploymentPipeline / NamingConvention / Unknown
+	column 'Environment Source'
+		dataType: string
+		sourceColumn: environment_source
+		summarizeBy: none
+
+	/// Override, else domain name, else Unclassified
+	column 'Workspace Classification'
+		dataType: string
+		sourceColumn: workspace_classification
+		summarizeBy: none
+
+	/// Support team from governance overrides
+	column 'Support Team'
+		dataType: string
+		sourceColumn: support_team
+		summarizeBy: none
+
+	/// Workspace level criticality override
+	column 'Business Criticality'
+		dataType: string
+		sourceColumn: business_criticality
+		summarizeBy: none
+
+	/// Scanned = current as of the scan watermark; Failed = retried by every run; NotScanned = not scanned yet, outside the scope, or not returned by the Scanner (inactive workspace)
+	column 'Scan State'
+		dataType: string
+		sourceColumn: scan_state
+		summarizeBy: none
+
+	/// Last successful Scanner pass
+	column 'Scanned At'
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm
+		sourceColumn: scanned_at
+		summarizeBy: none
+
+	/// Soft delete flag: row no longer returned by the source
+	column 'Is Deleted'
+		dataType: boolean
+		isHidden
+		sourceColumn: is_deleted
+		summarizeBy: none
+
+	/// Gen1 dataflows in the workspace
+	column 'Gen1 Dataflow Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: gen1_dataflow_count
+		summarizeBy: none
+
+	/// Gen2 dataflows in the workspace
+	column 'Gen2 Dataflow Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: gen2_dataflow_count
+		summarizeBy: none
+
+	/// Semantic models
+	column 'Dataset Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: dataset_count
+		summarizeBy: none
+
+	/// Reports
+	column 'Report Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: report_count
+		summarizeBy: none
+
+	/// Dashboards
+	column 'Dashboard Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: dashboard_count
+		summarizeBy: none
+
+	/// Other Fabric items seen by the Scanner
+	column 'Other Item Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: other_item_count
+		summarizeBy: none
+
+	/// Number of admins
+	column 'Admin Count'
+		dataType: int64
+		formatString: #,0
+		isHidden
+		sourceColumn: admin_count
+		summarizeBy: none
+
+	partition Workspaces = entity
+		mode: directLake
+		source
+			entityName: assessment_workspaces
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

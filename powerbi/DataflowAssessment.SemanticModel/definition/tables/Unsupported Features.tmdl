@@ -1,0 +1,113 @@
+/// One row per rule hit: what blocks or complicates the migration of a dataflow, with evidence and remediation.
+table 'Unsupported Features'
+
+	/// Rule hits.
+	measure 'Finding Count' = COUNTROWS('Unsupported Features')
+		formatString: #,0
+		displayFolder: Findings
+
+	/// Dataflows with at least one finding.
+	measure 'Dataflows Affected' = DISTINCTCOUNT('Unsupported Features'[Dataflow ID])
+		formatString: #,0
+		displayFolder: Findings
+
+	/// Effort of the findings.
+	measure 'Remediation Effort Days' = SUM('Unsupported Features'[Effort Days])
+		formatString: #,0.0
+		displayFolder: Findings
+
+	/// Findings that make the dataflow Unsupported on a path.
+	measure 'Blocking Findings' = CALCULATE([Finding Count], FILTER('Unsupported Features', 'Unsupported Features'[Impact Wizard] = "Unsupported" || 'Unsupported Features'[Impact Save As] = "Unsupported"))
+		formatString: #,0
+		displayFolder: Findings
+
+	/// Dataflow GUID
+	column 'Dataflow ID'
+		dataType: string
+		isHidden
+		sourceColumn: dataflow_id
+		summarizeBy: none
+
+	/// Rule id from Assessment_RuleCatalog
+	column 'Rule ID'
+		dataType: string
+		isHidden
+		sourceColumn: rule_id
+		summarizeBy: none
+
+	/// Human readable feature
+	column 'Feature Name'
+		dataType: string
+		sourceColumn: feature_name
+		summarizeBy: none
+
+	/// Storage / Refresh / Lineage / Connectivity / Capacity / Transform / Data quality / Governance
+	column Category
+		dataType: string
+		sourceColumn: category
+		summarizeBy: none
+
+	/// Blocker / Major / Minor / Info
+	column Severity
+		dataType: string
+		sourceColumn: severity
+		summarizeBy: none
+
+	/// Effect on the Upgrade Wizard path: Unsupported / NeedsAttention / Deferred / None
+	column 'Impact Wizard'
+		dataType: string
+		sourceColumn: impact_wizard
+		summarizeBy: none
+
+	/// Effect on the Save-As path: Unsupported / NeedsAttention / Deferred / None
+	column 'Impact Save As'
+		dataType: string
+		sourceColumn: impact_saveas
+		summarizeBy: none
+
+	/// Query or entity concerned (empty when dataflow level)
+	column 'Entity Name'
+		dataType: string
+		sourceColumn: entity_name
+		summarizeBy: none
+
+	/// What was detected
+	column Evidence
+		dataType: string
+		sourceColumn: evidence
+		summarizeBy: none
+
+	/// Recommended action
+	column Remediation
+		dataType: string
+		sourceColumn: remediation
+		summarizeBy: none
+
+	/// Verified / Heuristic
+	column Confidence
+		dataType: string
+		sourceColumn: confidence
+		summarizeBy: none
+
+	/// Estimated remediation effort
+	column 'Effort Days'
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		sourceColumn: effort_days
+		summarizeBy: none
+
+	/// Weight in the unsupported-features score
+	column Weight
+		dataType: int64
+		formatString: 0
+		isHidden
+		sourceColumn: weight
+		summarizeBy: none
+
+	partition 'Unsupported Features' = entity
+		mode: directLake
+		source
+			entityName: assessment_unsupportedfeatures
+			schemaName: dbo
+			expressionSource: 'DirectLake - DataflowAssessment'

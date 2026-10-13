@@ -1,0 +1,98 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "deps_assets",
+  "position": {
+    "x": 20,
+    "y": 245,
+    "z": 11,
+    "height": 235,
+    "width": 410,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Related Asset Type"
+                }
+              },
+              "queryRef": "Dependencies.Related Asset Type",
+              "nativeQueryRef": "Related Asset Type",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Related Assets"
+                }
+              },
+              "queryRef": "Dependencies.Related Assets",
+              "nativeQueryRef": "Related Assets"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dependencies"
+                    }
+                  },
+                  "Property": "Direction"
+                }
+              },
+              "queryRef": "Dependencies.Direction",
+              "nativeQueryRef": "Direction",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Related assets by type and direction'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
