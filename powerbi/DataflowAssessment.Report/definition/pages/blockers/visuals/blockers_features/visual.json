@@ -95,11 +95,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C62828'"
+                      "Value": "'#D9534F'"
                     }
                   }
                 }
@@ -136,11 +136,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#EF6C00'"
+                      "Value": "'#F2A23A'"
                     }
                   }
                 }
@@ -177,11 +177,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F9A825'"
+                      "Value": "'#E8C96B'"
                     }
                   }
                 }
@@ -218,11 +218,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#90A4AE'"
+                      "Value": "'#9DBBB0'"
                     }
                   }
                 }
@@ -254,6 +254,19 @@
                 }
               }
             ]
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
           }
         }
       ]

@@ -77,11 +77,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2E7D32'"
+                      "Value": "'#1F9D6B'"
                     }
                   }
                 }
@@ -118,11 +118,52 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C62828'"
+                      "Value": "'#1F9D6B'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Refresh History"
+                          }
+                        },
+                        "Property": "Status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Completed'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D9534F'"
                     }
                   }
                 }
@@ -159,11 +200,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#757575'"
+                      "Value": "'#8A9A94'"
                     }
                   }
                 }
@@ -200,11 +241,52 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1E88E5'"
+                      "Value": "'#9DBBB0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Refresh History"
+                          }
+                        },
+                        "Property": "Status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Skipped'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3B7DD8'"
                     }
                   }
                 }
@@ -236,6 +318,60 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D6D0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Refresh History"
+                          }
+                        },
+                        "Property": "Status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Unknown'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
           }
         }
       ]

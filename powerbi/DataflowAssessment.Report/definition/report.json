@@ -5,6 +5,11 @@
       "name": "CY24SU06",
       "reportVersionAtImport": "5.55",
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "FDEA.theme.json",
+      "reportVersionAtImport": "5.55",
+      "type": "RegisteredResources"
     }
   },
   "layoutOptimization": "None",
@@ -21,5 +26,23 @@
     "isFilterSelectionsButtonEnabled": false,
     "isFieldWellButtonEnabled": false,
     "isApplyAllButtonEnabled": false
-  }
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "fdea-badge.png",
+          "path": "fdea-badge.png",
+          "type": "Image"
+        },
+        {
+          "name": "FDEA.theme.json",
+          "path": "FDEA.theme.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ]
 }

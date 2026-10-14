@@ -71,20 +71,6 @@
                       "Entity": "Wave Plan"
                     }
                   },
-                  "Property": "Planned Effort Days"
-                }
-              },
-              "queryRef": "Wave Plan.Planned Effort Days",
-              "nativeQueryRef": "Planned Effort Days"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Wave Plan"
-                    }
-                  },
                   "Property": "Downstream Items to Re-point"
                 }
               },

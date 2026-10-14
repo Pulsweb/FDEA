@@ -42,11 +42,11 @@
                       "Entity": "Dataflows"
                     }
                   },
-                  "Property": "Total Effort Days"
+                  "Property": "Average Complexity Score"
                 }
               },
-              "queryRef": "Dataflows.Total Effort Days",
-              "nativeQueryRef": "Total Effort Days"
+              "queryRef": "Dataflows.Average Complexity Score",
+              "nativeQueryRef": "Average Complexity Score"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Dataflows"
                   }
                 },
-                "Property": "Total Effort Days"
+                "Property": "Average Complexity Score"
               }
             },
             "direction": "Descending"
@@ -85,7 +85,22 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Effort (person-days) per workspace'"
+                  "Value": "'Average complexity per workspace'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

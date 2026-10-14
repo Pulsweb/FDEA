@@ -42,11 +42,11 @@
                       "Entity": "Wave Plan"
                     }
                   },
-                  "Property": "Planned Effort Days"
+                  "Property": "Planned Dataflows"
                 }
               },
-              "queryRef": "Wave Plan.Planned Effort Days",
-              "nativeQueryRef": "Planned Effort Days"
+              "queryRef": "Wave Plan.Planned Dataflows",
+              "nativeQueryRef": "Planned Dataflows"
             }
           ]
         }
@@ -67,7 +67,22 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Effort per wave (person-days)'"
+                  "Value": "'Planned dataflows per wave'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

@@ -163,20 +163,6 @@
                       "Entity": "Run History"
                     }
                   },
-                  "Property": "Run Effort Days"
-                }
-              },
-              "queryRef": "Run History.Run Effort Days",
-              "nativeQueryRef": "Run Effort Days"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Run History"
-                    }
-                  },
                   "Property": "Run API Calls"
                 }
               },
@@ -217,6 +203,21 @@
               "expr": {
                 "Literal": {
                   "Value": "'Runs'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

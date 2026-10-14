@@ -126,20 +126,6 @@
               },
               "queryRef": "Unsupported Features.Remediation",
               "nativeQueryRef": "Remediation"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Unsupported Features"
-                    }
-                  },
-                  "Property": "Remediation Effort Days"
-                }
-              },
-              "queryRef": "Unsupported Features.Remediation Effort Days",
-              "nativeQueryRef": "Remediation Effort Days"
             }
           ]
         }

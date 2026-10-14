@@ -140,20 +140,6 @@
               },
               "queryRef": "Migration Backlog.Complexity Band",
               "nativeQueryRef": "Complexity Band"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Migration Backlog"
-                    }
-                  },
-                  "Property": "Backlog Effort Days"
-                }
-              },
-              "queryRef": "Migration Backlog.Backlog Effort Days",
-              "nativeQueryRef": "Backlog Effort Days"
             }
           ]
         }

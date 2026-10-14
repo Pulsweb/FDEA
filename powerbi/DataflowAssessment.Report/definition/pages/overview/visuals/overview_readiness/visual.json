@@ -58,11 +58,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2E7D32'"
+                      "Value": "'#1F9D6B'"
                     }
                   }
                 }
@@ -99,11 +99,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F9A825'"
+                      "Value": "'#F2A23A'"
                     }
                   }
                 }
@@ -140,11 +140,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C62828'"
+                      "Value": "'#D9534F'"
                     }
                   }
                 }
@@ -181,11 +181,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#757575'"
+                      "Value": "'#8A9A94'"
                     }
                   }
                 }
@@ -219,6 +219,59 @@
             ]
           }
         }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Right'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Percent of total'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "slices": [
+        {
+          "properties": {
+            "innerRadiusRatio": {
+              "expr": {
+                "Literal": {
+                  "Value": "62L"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -243,5 +296,61 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f_readiness_not_blank",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dataflows"
+              }
+            },
+            "Property": "Readiness"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Dataflows",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Readiness"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }

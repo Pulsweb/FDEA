@@ -23,11 +23,11 @@
                       "Entity": "Refresh History"
                     }
                   },
-                  "Property": "Failed Runs"
+                  "Property": "Failed Runs (card)"
                 }
               },
-              "queryRef": "Refresh History.Failed Runs",
-              "nativeQueryRef": "Failed Runs"
+              "queryRef": "Refresh History.Failed Runs (card)",
+              "nativeQueryRef": "Failed Runs (card)"
             }
           ]
         }
@@ -49,6 +49,52 @@
               "expr": {
                 "Literal": {
                   "Value": "'Failed Runs'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D9534F'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "24D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

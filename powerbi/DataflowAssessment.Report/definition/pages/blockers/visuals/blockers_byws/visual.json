@@ -95,11 +95,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2E7D32'"
+                      "Value": "'#1F9D6B'"
                     }
                   }
                 }
@@ -136,11 +136,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F9A825'"
+                      "Value": "'#F2A23A'"
                     }
                   }
                 }
@@ -177,11 +177,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C62828'"
+                      "Value": "'#D9534F'"
                     }
                   }
                 }
@@ -218,11 +218,11 @@
         {
           "properties": {
             "fill": {
-              "solidColor": {
+              "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#757575'"
+                      "Value": "'#8A9A94'"
                     }
                   }
                 }
@@ -256,6 +256,19 @@
             ]
           }
         }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -280,5 +293,61 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f_readiness_not_blank",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dataflows"
+              }
+            },
+            "Property": "Readiness"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Dataflows",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Readiness"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }
