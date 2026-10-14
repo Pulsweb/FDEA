@@ -12,7 +12,7 @@ table Workspaces
 		displayFolder: Estate
 
 	/// Workspaces the Scanner did not cover: their dataflows may be missing or incomplete.
-	measure 'Workspaces Not Scanned' = CALCULATE(COUNTROWS('Workspaces'), 'Workspaces'[Is Deleted] = FALSE(), 'Workspaces'[Is Personal] = FALSE(), 'Workspaces'[Scan State] <> "Scanned")
+	measure 'Workspaces Not Scanned' = COALESCE(CALCULATE(COUNTROWS('Workspaces'), 'Workspaces'[Is Deleted] = FALSE(), 'Workspaces'[Is Personal] = FALSE(), 'Workspaces'[Scan State] <> "Scanned"), 0)
 		formatString: #,0
 		displayFolder: Data quality
 

@@ -17,7 +17,7 @@ table 'Unsupported Features'
 		displayFolder: Findings
 
 	/// Findings that make the dataflow Unsupported on a path.
-	measure 'Blocking Findings' = CALCULATE([Finding Count], FILTER('Unsupported Features', 'Unsupported Features'[Impact Wizard] = "Unsupported" || 'Unsupported Features'[Impact Save As] = "Unsupported"))
+	measure 'Blocking Findings' = COALESCE(CALCULATE([Finding Count], FILTER('Unsupported Features', 'Unsupported Features'[Impact Wizard] = "Unsupported" || 'Unsupported Features'[Impact Save As] = "Unsupported")), 0)
 		formatString: #,0
 		displayFolder: Findings
 

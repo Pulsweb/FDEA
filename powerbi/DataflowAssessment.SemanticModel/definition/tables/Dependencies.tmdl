@@ -12,7 +12,7 @@ table Dependencies
 		displayFolder: Dependencies
 
 	/// Assets in a dependency cycle.
-	measure 'Dependency Cycles' = CALCULATE(COUNTROWS('Dependencies'), 'Dependencies'[Is Cyclic] = TRUE())
+	measure 'Dependency Cycles' = COALESCE(CALCULATE(COUNTROWS('Dependencies'), 'Dependencies'[Is Cyclic] = TRUE()), 0)
 		formatString: #,0
 		displayFolder: Dependencies
 

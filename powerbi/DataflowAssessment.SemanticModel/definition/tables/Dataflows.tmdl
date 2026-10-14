@@ -12,7 +12,7 @@ table Dataflows
 		displayFolder: Inventory
 
 	/// Fabric Dataflow Gen2.
-	measure 'Gen2 Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Dataflow Type] = "Gen2")
+	measure 'Gen2 Dataflows' = COALESCE(CALCULATE([Dataflow Count], 'Dataflows'[Dataflow Type] = "Gen2"), 0)
 		formatString: #,0
 		displayFolder: Inventory
 
@@ -32,12 +32,12 @@ table Dataflows
 		displayFolder: Readiness
 
 	/// Blocked by an unsupported feature: remediate or rebuild.
-	measure 'Unsupported Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Unsupported")
+	measure 'Unsupported Dataflows' = COALESCE(CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Unsupported"), 0)
 		formatString: #,0
 		displayFolder: Readiness
 
 	/// Stale, failing or blocked by an upstream: not planned.
-	measure 'Deferred Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Deferred")
+	measure 'Deferred Dataflows' = COALESCE(CALCULATE([Dataflow Count], 'Dataflows'[Readiness] = "Deferred"), 0)
 		formatString: #,0
 		displayFolder: Readiness
 
@@ -67,7 +67,7 @@ table Dataflows
 		displayFolder: Connectivity
 
 	/// Dataflows with an enabled refresh schedule.
-	measure 'Scheduled Dataflows' = CALCULATE([Dataflow Count], 'Dataflows'[Schedule Enabled] = TRUE())
+	measure 'Scheduled Dataflows' = COALESCE(CALCULATE([Dataflow Count], 'Dataflows'[Schedule Enabled] = TRUE()), 0)
 		formatString: #,0
 		displayFolder: Operations
 

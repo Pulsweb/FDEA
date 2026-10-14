@@ -1,6 +1,12 @@
 /// One row per refresh execution observed (Gen1 transactions, Gen2 job instances).
 table 'Refresh History'
 
+	/// 'Failed Runs' for the report card: 0 instead of blank when nothing failed.
+	measure 'Failed Runs (card)' = COALESCE([Failed Runs], 0)
+		formatString: #,0
+		displayFolder: Report cards
+		isHidden
+
 	/// Refresh executions observed.
 	measure 'Refresh Runs' = COUNTROWS('Refresh History')
 		formatString: #,0

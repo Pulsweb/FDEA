@@ -17,37 +17,37 @@ table 'Run History'
 		displayFolder: Monitoring
 
 	/// Dataflows in the inventory at the end of the run.
-	measure 'Run Dataflows' = SUM('Run History'[Dataflows Total])
+	measure 'Run Dataflows' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Dataflows Total])
 		formatString: #,0
 		displayFolder: Monitoring
 
 	/// Workspaces scanned by the run.
-	measure 'Run Workspaces Scanned' = SUM('Run History'[Workspaces Scanned])
+	measure 'Run Workspaces Scanned' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Workspaces Scanned])
 		formatString: #,0
 		displayFolder: Monitoring
 
 	/// Total effort at the end of the run.
-	measure 'Run Effort Days' = SUM('Run History'[Total Effort Days])
+	measure 'Run Effort Days' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Total Effort Days])
 		formatString: #,0.0
 		displayFolder: Monitoring
 
 	/// Ready dataflows at the end of the run.
-	measure 'Run Ready' = SUM('Run History'[Ready Count])
+	measure 'Run Ready' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Ready Count])
 		formatString: #,0
 		displayFolder: Monitoring
 
 	/// Needs Attention dataflows at the end of the run.
-	measure 'Run Needs Attention' = SUM('Run History'[Needs Attention Count])
+	measure 'Run Needs Attention' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Needs Attention Count])
 		formatString: #,0
 		displayFolder: Monitoring
 
 	/// Unsupported dataflows at the end of the run.
-	measure 'Run Unsupported' = SUM('Run History'[Unsupported Count])
+	measure 'Run Unsupported' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Unsupported Count])
 		formatString: #,0
 		displayFolder: Monitoring
 
 	/// Deferred dataflows at the end of the run.
-	measure 'Run Deferred' = SUM('Run History'[Deferred Count])
+	measure 'Run Deferred' = SUMX(TOPN(1, 'Run History', 'Run History'[Started At], DESC), 'Run History'[Deferred Count])
 		formatString: #,0
 		displayFolder: Monitoring
 
