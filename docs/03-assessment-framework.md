@@ -67,6 +67,25 @@ Classification mapping: *Ready for Upgrade* = `Ready`; *Needs Attention* = `Need
 The recommended path is the configured preference (`p_preferred_path = wizard | saveas`), otherwise the path with the least severe status, then the lowest remediation
 effort; the wizard wins ties (no id change, no rebind). `p_wizard_available = False` forces Save-As.
 
+### Alternatives to the Upgrade Wizard
+
+The wizard is the first choice, but it is not always available or suitable: the dataflow is **Unsupported** on the wizard path, the wizard reports *Upgrade unavailable* (for example you are not the owner and cannot take over), or you
+want to **keep the Gen1 dataflow** (a wizard upgrade replaces it and cannot be reverted). Microsoft describes the other approaches in
+[Migrate from Dataflow Gen1 to Dataflow Gen2: Migration scenarios](https://learn.microsoft.com/fabric/data-factory/dataflow-gen2-migrate-from-dataflow-gen1-scenarios) and
+[Save As](https://learn.microsoft.com/fabric/data-factory/migrate-to-dataflow-gen2-using-save-as). FDEA models the first two as paths (`UpgradeWizard`, `SaveAs`) and falls back to `ManualRebuild` when neither works; the others are
+rebuild and re-architecture options that you apply from the findings.
+
+| Option | When to use it | What to know |
+|---|---|---|
+| **Save As** (a Gen2 CI/CD copy; per dataflow in the portal, in bulk through the REST API) | the wizard is unavailable or unsuitable, or the Gen1 dataflow must stay in place | new dataflow id: re-point the consumers (`Assessment_RebindWorklist`); some Gen1 settings are not copied (see the table above) |
+| **Power Query template** (export the queries from Gen1, import them into a new Gen2) | a dataflow that neither path accepts (`ManualRebuild`), or when you want to clean up while migrating | templates work with Gen1 and Gen2; you recreate the destination, schedule and incremental refresh yourself |
+| **Re-point consumers to the new dataflow** (Microsoft scenario 1) | personal or team dataflows in one workspace, kept as a source for existing semantic models, Excel files or Dataverse tables | update the workspace and dataflow ids in the consumers' queries (`PowerPlatform.Dataflows`); parameterized semantic models can be updated through the REST API |
+| **Replace linked tables with OneLake shortcuts** (Microsoft scenario 2) | composable dataflows with linked tables across workspaces (`LNK-001`, `LNK-002`, cross-workspace links) | output the tables to a Lakehouse and read them with `Lakehouse.Contents`; removes the dependency on linked-table refresh |
+| **Output to a Warehouse** (Microsoft scenario 3) | shared tables that need row-level or column-level security or data masking | read with `Fabric.Warehouse`; access is granted through the SQL granular permissions |
+
+Microsoft recommends modernizing rather than copying: Dataflow Gen2 offers fast copy, a better incremental refresh and data destinations, and CU consumption differs from Gen1, so validate it with a pilot. FDEA does not detect these
+options automatically: read the findings of a dataflow (`Assessment_UnsupportedFeatures`) and pick the option that fits.
+
 ### Main rules per path
 
 `N` = Needs attention, `U` = Unsupported, `D` = Deferred, `-` = no effect. The complete list, with detection and remediation text, is in the [rule catalog](rule-catalog.md).
@@ -94,6 +113,21 @@ effort; the wizard wins ties (no id change, no rebind). `p_wizard_available = Fa
 
 A rule is `Verified` when it comes from Microsoft documentation (wizard assessment table, Gen1/Gen2 differences, Gen2 limits) and `Heuristic` when it infers a documented
 limitation from indirect signals. `Assessment_RuleCatalog` and `assessment_confidence` (High / Medium / Low, from the completeness of the definition, compute-engine and refresh data) make that visible.
+
+### Linked dataflows and the refresh cascade
+
+Linked dataflows refresh differently in Gen1 depending on where they live, and not at all in Gen2:
+
+| Situation | Gen1 automatic cascade |
+|---|---|
+| Parent and child in the **same workspace** | **Yes**: refreshing the parent (source) refreshes the child (destination), in one transaction (if the child fails, the parent refresh fails as well) |
+| Parent and child in **different workspaces** | **No**: the link behaves like an external data source, the child takes the latest data of the parent when it refreshes |
+| Child refreshed manually | Does not refresh the parent |
+
+Dataflow Gen2 does not cascade at all. Before a dataflow with linked entities is migrated, decide how its refreshes are chained afterwards: a pipeline that refreshes the dataflows in order, or schedules staggered so that each one
+starts after its source. A same-workspace chain that "just worked" in Gen1 is the case that silently changes. `LNK-001` and `LNK-002` flag the dependency, `Assessment_DataflowDependencies` and the `Crosses Workspace` column tell you whether it crosses workspaces
+(and so was not cascading in Gen1 either), and `Assessment_MigrationBacklog` orders the upstream dataflows first. Sources: Microsoft Learn,
+[Link tables between dataflows](https://learn.microsoft.com/power-query/dataflows/linked-tables#refresh-logic-of-linked-tables) and the [Upgrade Wizard limitations](https://learn.microsoft.com/fabric/data-factory/migrate-to-dataflow-gen2-using-upgrade-wizard).
 
 ## 3. Complexity scoring algorithm
 

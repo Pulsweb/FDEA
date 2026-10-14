@@ -157,6 +157,10 @@ adapt the regexes), dataflow name, Unknown.
    * *Save-As* (new id): use the Microsoft accelerator (see [05-accelerator-review.md](05-accelerator-review.md)), filtered on the dataflow ids of the batch; its results table is
      read by the next run (`p_migration_results_table`) and the Gen1 dataflows turn into `MigratedBySaveAs` with their `gen2_dataflow_id`; re-point the consumers listed in the
      rebind worklist, re-enable the schedules, recreate incremental refresh.
+   * *Neither path fits* (Unsupported, wizard unavailable, Gen1 to be kept, linked tables across workspaces): see the [alternatives](03-assessment-framework.md#alternatives-to-the-upgrade-wizard)
+     (Power Query template, OneLake shortcuts, Warehouse output).
+   * *Linked dataflows*: Gen2 has no cascading refresh, and Gen1 only cascaded inside one workspace. Chain the refreshes of the migrated dataflows with a pipeline or staggered schedules
+     ([details](03-assessment-framework.md#linked-dataflows-and-the-refresh-cascade)).
 5. **Re-run** (`refresh_only` or `incremental`) after each batch: in-place upgrades appear as `Migrated` (type flip), the KPI row of the run feeds the burn-down, downstream
    dataflows whose upstream moved become startable.
 6. **Retire.** After validation (and the soft-delete period of the wizard), remove the Gen1 dataflows listed as migrated.

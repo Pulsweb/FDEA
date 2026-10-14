@@ -1,0 +1,5 @@
+workspace_id,dataflow_id,business_owner,technical_owner,support_team,business_criticality,workspace_classification,environment,defer,defer_reason,pin_wave,wizard_status_actual,rollback_plan_defined,uat_window_start,uat_window_end,notes,updated_by,updated_at
+00000000-0000-0000-0000-000000000001,,Jane Doe,,BI Competency Center,High,Confidential,,,,,,,,,Applies to every dataflow of the workspace,jane.doe@example.com,2026-10-01
+00000000-0000-0000-0000-000000000002,00000000-0000-0000-0000-0000000000a1,,,,,,,true,Retired with the legacy ERP decommission,,,,,,Do not migrate,jane.doe@example.com,2026-10-01
+00000000-0000-0000-0000-000000000001,00000000-0000-0000-0000-0000000000a2,,,,High,,,,,3,,true,2026-11-16,2026-11-27,Migrate after the year-end freeze,jane.doe@example.com,2026-10-01
+00000000-0000-0000-0000-000000000001,00000000-0000-0000-0000-0000000000a3,,,,,,,,,,Ready to migrate,,,,Wizard assessment run on 2026-10-09,john.smith@example.com,2026-10-09
